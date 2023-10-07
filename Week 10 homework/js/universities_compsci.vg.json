@@ -1,0 +1,31 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Top computer science universities in each country",
+  "data": {"url": "https://raw.githubusercontent.com/Craigy101/3179/main/universities.csv"},
+  "transform": [
+    {"filter": {"selection": "country"}},
+    {"aggregate": [{"op": "count", "as": "num_universities"}], "groupby": ["state"]}
+
+  ],
+  "selection": {
+    "country": {
+      "type": "single",
+      "fields": ["country"],
+      "bind": {
+        "input": "select",
+        "options": ["Canada", "United States", "Mexico", "Japan", "China", "India", "United Kingdom", "Germany", "France", "Spain", "Italy", "Netherlands", "Sweden", "Switzerland", "Australia", "New Zealand"],
+        "name": "Country:"
+      }
+    }
+  },
+  "mark": "bar",
+  "encoding": {
+    "x": {"field": "state", "type": "nominal", "title": "State"},
+    "y": {"aggregate": "sum", "field": "num_universities", "type": "quantitative", "title": "Number of Universities"},
+    "color": {"value": "blue"},
+    "tooltip": [
+      {"field": "state", "type": "nominal", "title": "State name"},
+      {"field": "num_universities", "type": "ordinal", "title": "Number of Universities"}
+    ]
+  }
+}

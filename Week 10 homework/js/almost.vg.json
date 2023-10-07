@@ -1,0 +1,74 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "title": "Top computer science universities in each country",
+    "data": {"url": "https://raw.githubusercontent.com/Craigy101/3179/main/universities.csv"},
+    "params": [
+      {
+        "name": "country",
+        "value": "United States",
+        "bind": {
+                "input": "select",
+                "options": [
+                    "Canada",
+                    "United States",
+                    "Mexico",
+                    "Japan",
+                    "China",
+                    "India",
+                    "United Kingdom",
+                    "Germany",
+                    "France",
+                    "Spain",
+                    "Italy",
+                    "Netherlands",
+                    "Sweden",
+                    "Switzerland",
+                    "Australia",
+                    "New Zealand"
+                ],
+                "name": "Country:"
+            }
+        }
+      
+    ],
+    "vconcat": [
+      {
+        "transform": [
+          {"filter": {"selection": "country"}},
+          {
+            "aggregate": [{"op": "count", "as": "num_universities"}],
+            "groupby": ["state"]
+          }
+        ],
+        
+        "mark": "bar",
+        "encoding": {
+          "x": {"field": "state", "type": "nominal", "title": "State"},
+          "y": {"aggregate": "sum", "field": "num_universities", "type": "quantitative", "title": "Number of Universities"},
+          "color": {"value": "blue"},
+          "tooltip": [
+            {"field": "state", "type": "nominal", "title": "State name"},
+            {"field": "num_universities", "type": "ordinal", "title": "Number of Universities"}
+          ]
+        }
+      },
+      {
+        "transform": [
+          {"filter": {"selection": "country"}},
+          {"window": [{"op": "rank", "as": "rank"}], "partitionBy": ["country"], "orderBy": ["-cs_overall_score"]},
+          {"filter": "datum.rank <= 3"}
+        ],
+        "mark": "bar",
+        "encoding": {
+          "x": {"field": "university_name", "type": "nominal", "title": "University Name", "sort": {"field": "rank"}},
+          "y": {"field": "cs_overall_score", "type": "quantitative", "title": "Computer Science Overall Score"},
+          "color": {"field": "country", "type": "nominal", "title": "Country"},
+          "tooltip": [
+            {"field": "university_name", "type": "nominal", "title": "University Name"},
+            {"field": "rank", "type": "ordinal", "title": "Rank"},
+            {"field": "cs_overall_score", "type": "quantitative", "title": "Computer Science Overall Score"}
+          ]
+        }
+      }
+    ]
+  }
