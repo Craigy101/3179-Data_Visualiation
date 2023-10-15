@@ -1,4 +1,4 @@
-Column1,rank,university_name,year,cs_academic_reputation,cs_employer_reputation,cs_citations_per_paper,cs__index_citations,cs_international_research,location.1,location.2
+Column1,rank,university_name,year,cs_academic_reputation,cs_employer_reputation,cs_citations_per_paper,cs__index_citations,cs_international_research,state,country
 0,1,Massachusetts Institute of Technology (MIT) ,2023,91,98.2,93.7,97.4,95.6, Cambridge,United States
 1,2,Carnegie Mellon University,2023,100,82.3,95.3,98.8,90.2, Pittsburgh,United States
 2,3,Stanford University,2023,88.5,96.3,99.9,100,74.8, Stanford,United States
