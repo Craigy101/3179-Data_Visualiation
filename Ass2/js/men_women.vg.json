@@ -1,0 +1,45 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": {
+    "url": "https://raw.githubusercontent.com/Craigy101/3179/main/clean_stack_overflow_survey.csv"
+  },
+  "title": {"text":"Gender and Sexuality of Coding Professionals", "fontSize":17},
+  "height": 200,
+  "width": 200,
+  "mark": "arc",
+  "encoding": {
+    "theta": {"field": "count", "type": "quantitative", "aggregate": "sum"},
+    "color": {
+      "field": "Gender and Sexual Orientation",
+      "type": "nominal",
+      "scale": {
+        "scheme": "category20b"
+      },
+      "legend": {"orient": "bottom", "direction": "vertical", "labelFontSize": 12, "titleFontSize": 16, "title":"Gender + Sex"}
+    },
+    
+    "tooltip": [
+      {"field": "Gender and Sexual Orientation", "type": "nominal"},
+      {"field": "percentage", "type": "quantitative", "format": ".2%"}
+    ]
+   
+  },
+  "transform": [
+    {"aggregate": [{"op": "count", "as": "count"}], "groupby": ["Gender_sex"]},
+    {
+      "window": [{
+        "op": "sum",
+        "field": "count",
+        "as": "total_count"
+      }]
+    },
+    {
+      "calculate": "datum.count / datum.total_count",
+      "as": "percentage"
+    },
+    {
+      "calculate": "if(datum.count / datum.total_count > 0.01, datum.Gender_sex, 'Other')",
+      "as": "Gender and Sexual Orientation"
+    }
+  ]
+}

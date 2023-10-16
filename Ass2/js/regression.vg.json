@@ -1,0 +1,41 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Salary vs Years Worked",
+    "fontSize": 18
+  },
+  "data": {
+    "name": "stack_overflow",
+    "url": "https://raw.githubusercontent.com/Craigy101/3179/main/clean_stack_overflow_survey.csv"
+  },
+  "mark": "rect",
+  "width": 250,
+  "height": 300,
+  "encoding": {
+    "x": {
+      "bin": {
+        "maxbins": 30
+      },
+      "field": "YearsCodePro",
+      "type": "quantitative"
+    },
+    "y": {
+      "bin": {
+        "maxbins": 30
+      },
+      "field": "logy",
+      "type": "quantitative",
+      "title": "log(Salary) USD"
+    },
+    "color": {
+      "aggregate": "count",
+      "type": "quantitative",
+      "title": "Frequency"
+    }
+  },
+  "config": {
+    "view": {
+      "stroke": "transparent"
+    }
+  }
+}
